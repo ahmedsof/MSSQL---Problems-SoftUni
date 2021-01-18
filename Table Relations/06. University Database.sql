@@ -1,0 +1,41 @@
+--CREATE DATABASE UniversityDatabase
+
+--USE UniversityDatabase
+CREATE TABLE Majors
+(
+MajorID INT PRIMARY KEY IDENTITY,
+[Name] NVARCHAR(30) NOT NULL
+)
+
+
+CREATE TABLE Students
+(
+StudentID INT PRIMARY KEY IDENTITY,
+StudentNumber NVARCHAR(15) NOT NULL UNIQUE,
+StudentName NVARCHAR(25) NOT NULL,
+MajorID INT FOREIGN KEY REFERENCES Majors(MajorID)
+)
+
+
+CREATE TABLE Payments
+(
+PaymentID INT PRIMARY KEY IDENTITY,
+PaymentDate DATETIME2 NOT NULL,
+PaymentAmount DECIMAL(7,2) NOT NULL,
+StudentID INT FOREIGN KEY REFERENCES Students(StudentID)
+)
+
+
+CREATE TABLE Subjects
+(
+SubjectID INT PRIMARY KEY IDENTITY,
+SubjectName NVARCHAR(50) NOT NULL
+)
+
+
+CREATE TABLE Agenda
+(
+StudentID INT FOREIGN KEY REFERENCES Students(StudentID),
+SubjectID Int FOREIGN KEY REFERENCES Subjects(SubjectID),
+PRIMARY KEY(StudentID, SubjectID)
+)
